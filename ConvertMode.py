@@ -1,7 +1,7 @@
+#library file for the Mode Selection
 from bcolors import bcolors
 
 def choice():
-    global mode
     mode = input(bcolors.OKCYAN+"\nEncrypt or Decrypt? : "+bcolors.ENDC)
     if mode[0].lower() == 'e':
         mode = 'encrypt'

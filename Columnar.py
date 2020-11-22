@@ -1,14 +1,24 @@
-# Transposition Cipher 
+# Transposition Cipher - Columnar
 import math, pyperclip, ConvertMode
 from bcolors import bcolors
 
-mode=ConvertMode.choice() #Choose the Mode
+def main():
+    mode=ConvertMode.choice() #Choose the Mode
+    myKey = int(input(bcolors.OKBLUE+"Choose your Desired Key Number: "+bcolors.ENDC))
+    message=input(bcolors.WARNING+"Please enter the message you wish to convert: \n"+bcolors.ENDC)
 
-myKey = int(input(bcolors.OKBLUE+"Choose your Desired Key Number: "+bcolors.ENDC))
-message=input(bcolors.WARNING+"Please enter the message you wish to convert: \n"+bcolors.ENDC)
+    if mode == 'encrypt':
+        ciphertext = encryption(myKey, message)
+        print(bcolors.WARNING+"\nResult of the Columnar Cipher: \n"+bcolors.OKGREEN+ciphertext+'|\n'+bcolors.ENDC)
+        pyperclip.copy(ciphertext)
 
+    elif mode == 'decrypt':
+        plaintext = decryption(myKey, message)
+        print(bcolors.WARNING+"\nResult of the Columnar Cipher: \n"+bcolors.OKGREEN+plaintext+'|\n'+bcolors.ENDC)
+        pyperclip.copy(plaintext)
+    exit(0)
 
-def encryptMessage(key, message):
+def encryption(key, message):
     # Each string in ciphertext represents a column in the grid.
     ciphertext = [''] * key
 
@@ -29,7 +39,7 @@ def encryptMessage(key, message):
     return ''.join(ciphertext)
 
 
-def decryptMessage(key, message):
+def decryption(key, message):
     # The transposition decrypt function will simulate the "columns" and
     # "rows" of the grid that the plaintext is written on by using a list
     # of strings. First, we need to calculate a few values.
@@ -61,17 +71,6 @@ def decryptMessage(key, message):
 
     return ''.join(plaintext)
 
-if mode == 'encrypt':
-    ciphertext = encryptMessage(myKey, message)
-
-    # Print the encrypted string in ciphertext to the screen, with
-    # a | ("pipe" character) after it in case there are spaces at the end of the encrypted message.
-    print(bcolors.WARNING+"\nResult of the Columnar Cipher: \n"+bcolors.OKGREEN+ciphertext+'|\n'+bcolors.ENDC)
-    pyperclip.copy(ciphertext)
-
-elif mode == 'decrypt':
-    plaintext = decryptMessage(myKey, message)
-
-    # Print with a | ("pipe" character) after it in case there are spaces at the end of the decrypted message.
-    print(bcolors.WARNING+"\nResult of the Columnar Cipher: \n"+bcolors.OKGREEN+plaintext+'|\n'+bcolors.ENDC)
-    pyperclip.copy(plaintext)
+# Driver program 
+if __name__ == "__main__": 
+    main()
