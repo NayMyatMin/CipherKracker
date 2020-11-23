@@ -1,5 +1,8 @@
 # Cracking Caesar Cipher 
 
+def main():
+    print("Ceaser Cracker")
+
 message = 'guv6Jv6Jz!J6rp5r7Jzr66ntrM'
 SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?.'
 
@@ -30,3 +33,7 @@ for key in range(len(SYMBOLS)):
 
     # Display every possible decryption:
     print('Key #%s: %s' % (key, translated))
+
+# Driver program 
+if __name__ == "__main__": 
+    main()
