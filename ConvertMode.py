@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #library file for the Mode Selection
-import Ceaser, Columnar, Vigenere
+import Ceaser, CeaserCracker, Columnar, ColumnarCracker, Vigenere, VigenereCracker 
 from bcolors import bcolors
 
 def choice():
@@ -24,11 +24,11 @@ def options(argument):
     elif(argument==3):
         Vigenere.main()
     elif(argument==4):
-        Vigenere.main()
+        CeaserCracker.main()
     elif(argument==5):
-        print("Still in Progress")
+        ColumnarCracker.main()
     elif(argument==6):
-        print("Still in Progress")
+        VigenereCracker.main()
     else:
         print(bcolors.FAIL+"Quitting!! The Option must be between 1 and 6\n"+bcolors.ENDC)
         exit(0)
