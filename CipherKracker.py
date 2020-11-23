@@ -41,8 +41,6 @@ Option 6 - Cracking Vignere Cipher''')
 
 # Function for the available options selection
 def options(argument): 
-    def default():
-        print("Error Option")
     if(1<=argument<=6):
         switcher = {  
             1: Ceaser.main(),
@@ -51,7 +49,9 @@ def options(argument):
             4: "Still in Progress",
             5: "Still in Progress",
             6: "Still in Progress"
-        }  
+        }
+        def default():
+            print("Error Option")  
         switcher.get(argument,default())
     else:
         print(bcolors.FAIL+"Quitting!! The Option must be between 1 and 6\n"+bcolors.ENDC)
@@ -59,7 +59,7 @@ def options(argument):
 
 def handler(signal_received, frame):
     # Handle any cleanup here
-    print('\nCTRL-C detected. Exiting gracefully\n')
+    print(bcolors.OKCYAN+'\nCTRL-C detected. Exiting gracefully\n'+bcolors.ENDC)
     exit(0)
 
 # Driver program 
