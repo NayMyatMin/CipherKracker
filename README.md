@@ -6,5 +6,5 @@
 * Transposition Cipher: *The Columnar Transposition Cipher*
 * Polyalphabetic Cipher: *The Vigenere Cipher* 
 
-**2. A Cracking Software using Bruteforce Method (Expected to be 3 Different Algorithms)**
+**2. A Cracking Software using Bruteforce Method for all of the above three Ciphers**
  
