@@ -4,9 +4,8 @@ from bcolors import bcolors
 
 def main():
     mode=ConvertMode.choice() #Choose the Mode
-
+    key=ConvertMode.intInput() #Ask for the user input key
     message=input(bcolors.WARNING+"Please enter the message you wish to convert: \n"+bcolors.ENDC)
-    key = 13 # Rot13 - Key
 
     # Every possible symbol that can be converted:
     SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?.'

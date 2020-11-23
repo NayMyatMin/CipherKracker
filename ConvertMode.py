@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#library file for the Mode Selection
+#the Mode Selection Module
 import Ceaser, CeaserCracker, Columnar, ColumnarCracker, Vigenere, VigenereCracker 
 from bcolors import bcolors
 
@@ -32,3 +32,13 @@ def options(argument):
     else:
         print(bcolors.FAIL+"Quitting!! The Option must be between 1 and 6\n"+bcolors.ENDC)
         exit(0)
+
+# Function to check if the input is INT type
+def intInput():
+    while True: #Error Handling for the ValueError
+        try:
+            myKey = int(input(bcolors.OKBLUE+"Choose your Desired Rotation Key Number: "+bcolors.ENDC))
+            break
+        except ValueError:
+            print(bcolors.FAIL+"Only input the Number! Alphabets are not Accepted!"+bcolors.ENDC)
+    return myKey

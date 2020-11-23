@@ -5,7 +5,7 @@ from bcolors import bcolors
 
 def main():
     mode=ConvertMode.choice() #Choose the Mode
-    myKey = int(input(bcolors.OKBLUE+"Choose your Desired Key Number: "+bcolors.ENDC))
+    myKey=ConvertMode.intInput() #Ask for the user input key
     message=input(bcolors.WARNING+"Please enter the message you wish to convert: \n"+bcolors.ENDC)
 
     if mode == 'encrypt':

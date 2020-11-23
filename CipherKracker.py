@@ -37,7 +37,7 @@ Option 6 - Cracking Vignere Cipher''')
             break
         except ValueError:
             print(bcolors.FAIL+"Only input the Number! Alphabets are not Accepted!"+bcolors.ENDC)
-    print(ConvertMode.options(argument))
+    ConvertMode.options(argument)
 
 def handler(signal_received, frame):
     # Handle any cleanup here
