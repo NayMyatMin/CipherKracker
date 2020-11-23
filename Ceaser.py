@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 import pyperclip, bcolors, ConvertMode
 from bcolors import bcolors
 

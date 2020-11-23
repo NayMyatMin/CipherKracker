@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #Vigenere Cipher
 import math, pyperclip, ConvertMode
 from bcolors import bcolors

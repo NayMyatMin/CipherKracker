@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # Transposition Cipher - Columnar
 import math, pyperclip, ConvertMode
 from bcolors import bcolors
