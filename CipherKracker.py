@@ -41,7 +41,7 @@ Option 6 - Cracking Vignere Cipher''')
 
 def handler(signal_received, frame):
     # Handle any cleanup here
-    print(bcolors.OKCYAN+'\nCTRL-C detected. Exiting gracefully\n'+bcolors.ENDC)
+    print('\nCTRL-C detected. Exiting gracefully\n')
     exit(0)
 
 # Driver program 
