@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 __author__ = "Nay Myat Min"
 __copyright__ = "Computer and Network Security, MU"
 __version__ = "1.0.0"
@@ -6,7 +6,7 @@ __maintainer__ = "Nay Myat Min"
 __email__ = "nay.min@student.mahidol.ac.th"
 __status__ = "Development"
 
-import Ceaser, Columnar, Vigenere
+import ConvertMode
 from signal import signal, SIGINT
 from sys import exit
 from bcolors import bcolors
@@ -37,25 +37,7 @@ Option 6 - Cracking Vignere Cipher''')
             break
         except ValueError:
             print(bcolors.FAIL+"Only input the Number! Alphabets are not Accepted!"+bcolors.ENDC)
-    print(options(argument))
-
-# Function for the available options selection
-def options(argument): 
-    def default():
-        print("Error Option")
-    if(1<=argument<=6):
-        switcher = {  
-            1: Ceaser.main(),
-            2: Columnar.main(),
-            3: Vigenere.main(),
-            4: "Still in Progress",
-            5: "Still in Progress",
-            6: "Still in Progress"
-        }  
-        switcher.get(argument,default())
-    else:
-        print(bcolors.FAIL+"Quitting!! The Option must be between 1 and 6\n"+bcolors.ENDC)
-        exit(0)
+    print(ConvertMode.options(argument))
 
 def handler(signal_received, frame):
     # Handle any cleanup here
