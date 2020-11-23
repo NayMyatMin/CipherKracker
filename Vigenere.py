@@ -35,7 +35,7 @@ def convertMessage(key, message, mode):
 
     for symbol in message: # Loop through each symbol in message.
         num = LETTERS.find(symbol.upper())
-        if num != -1: # -1 means symbol.upper() was not found in LETTERS.
+        if num != -1: # When not found in LETTERS
             if mode == 'encrypt':
                 num += LETTERS.find(key[keyIndex]) # Add if encrypting.
             elif mode == 'decrypt':
@@ -43,7 +43,6 @@ def convertMessage(key, message, mode):
 
             num %= len(LETTERS) # Handle any wraparound.
 
-            # Add the encrypted/decrypted symbol to the end of converted:
             if symbol.isupper():
                 converted.append(LETTERS[num])
             elif symbol.islower():
@@ -53,7 +52,6 @@ def convertMessage(key, message, mode):
             if keyIndex == len(key):
                 keyIndex = 0
         else:
-            # Append the symbol without encrypting/decrypting.
             converted.append(symbol)
 
     return ''.join(converted)

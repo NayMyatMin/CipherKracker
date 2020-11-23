@@ -25,7 +25,7 @@ Otherwise on Linux, you will need the gtk or PyQt5/PyQt4 modules installed.
 gtk and PyQt4 modules are not available for Python 3,
 and this module does not work with PyGObject yet.
 
-Note: There seems to be a way to get gtk on Python 3, according to:
+Note: There seem sto be a way to get gtk on Python 3, according to:
     https://askubuntu.com/questions/697397/python3-is-not-supporting-gtk-module
 
 Cygwin is currently not supported.
@@ -43,7 +43,7 @@ A malicious user could rename or add programs with these names, tricking
 Pyperclip into running them with whatever permissions the Python process has.
 
 """
-__version__ = '1.7.0'
+__version__ = '1.6.0'
 
 import contextlib
 import ctypes
@@ -68,7 +68,7 @@ EXCEPT_MSG = """
 
 PY2 = sys.version_info[0] == 2
 
-STR_OR_UNICODE = unicode if PY2 else str # For paste(): Python 3 uses str, Python 2 uses unicode.
+STR_OR_UNICODE = unicode if PY2 else str
 
 ENCODING = 'utf-8'
 
@@ -94,20 +94,10 @@ class PyperclipWindowsException(PyperclipException):
         super(PyperclipWindowsException, self).__init__(message)
 
 
-def _stringifyText(text):
-    if PY2:
-        acceptedTypes = (unicode, str, int, float, bool)
-    else:
-        acceptedTypes = (str, int, float, bool)
-    if not isinstance(text, acceptedTypes):
-        raise PyperclipException('only str, int, float, and bool values can be copied to the clipboard, not %s' % (text.__class__.__name__))
-    return STR_OR_UNICODE(text)
-
 
 def init_osx_pbcopy_clipboard():
 
     def copy_osx_pbcopy(text):
-        text = _stringifyText(text) # Converts non-str values to str.
         p = subprocess.Popen(['pbcopy', 'w'],
                              stdin=subprocess.PIPE, close_fds=True)
         p.communicate(input=text.encode(ENCODING))
@@ -124,7 +114,6 @@ def init_osx_pbcopy_clipboard():
 def init_osx_pyobjc_clipboard():
     def copy_osx_pyobjc(text):
         '''Copy string argument to clipboard'''
-        text = _stringifyText(text) # Converts non-str values to str.
         newStr = Foundation.NSString.stringWithString_(text).nsstring()
         newData = newStr.dataUsingEncoding_(Foundation.NSUTF8StringEncoding)
         board = AppKit.NSPasteboard.generalPasteboard()
@@ -146,7 +135,6 @@ def init_gtk_clipboard():
 
     def copy_gtk(text):
         global cb
-        text = _stringifyText(text) # Converts non-str values to str.
         cb = gtk.Clipboard()
         cb.set_text(text)
         cb.store()
@@ -180,7 +168,6 @@ def init_qt_clipboard():
         app = QApplication([])
 
     def copy_qt(text):
-        text = _stringifyText(text) # Converts non-str values to str.
         cb = app.clipboard()
         cb.setText(text)
 
@@ -196,7 +183,6 @@ def init_xclip_clipboard():
     PRIMARY_SELECTION='p'
 
     def copy_xclip(text, primary=False):
-        text = _stringifyText(text) # Converts non-str values to str.
         selection=DEFAULT_SELECTION
         if primary:
             selection=PRIMARY_SELECTION
@@ -224,7 +210,6 @@ def init_xsel_clipboard():
     PRIMARY_SELECTION='-p'
 
     def copy_xsel(text, primary=False):
-        text = _stringifyText(text) # Converts non-str values to str.
         selection_flag = DEFAULT_SELECTION
         if primary:
             selection_flag = PRIMARY_SELECTION
@@ -246,7 +231,6 @@ def init_xsel_clipboard():
 
 def init_klipper_clipboard():
     def copy_klipper(text):
-        text = _stringifyText(text) # Converts non-str values to str.
         p = subprocess.Popen(
             ['qdbus', 'org.kde.klipper', '/klipper', 'setClipboardContents',
              text.encode(ENCODING)],
@@ -275,7 +259,6 @@ def init_klipper_clipboard():
 
 def init_dev_clipboard_clipboard():
     def copy_dev_clipboard(text):
-        text = _stringifyText(text) # Converts non-str values to str.
         if text == '':
             warnings.warn('Pyperclip cannot copy a blank string to the clipboard on Cygwin. This is effectively a no-op.')
         if '\r' in text:
@@ -424,9 +407,6 @@ def init_windows_clipboard():
     def copy_windows(text):
         # This function is heavily based on
         # http://msdn.com/ms649016#_win32_Copying_Information_to_the_Clipboard
-
-        text = _stringifyText(text) # Converts non-str values to str.
-
         with window() as hwnd:
             # http://msdn.com/ms649048
             # If an application calls OpenClipboard with hwnd set to NULL,
@@ -465,23 +445,6 @@ def init_windows_clipboard():
     return copy_windows, paste_windows
 
 
-def init_wsl_clipboard():
-    def copy_wsl(text):
-        text = _stringifyText(text) # Converts non-str values to str.
-        p = subprocess.Popen(['clip.exe'],
-                             stdin=subprocess.PIPE, close_fds=True)
-        p.communicate(input=text.encode(ENCODING))
-
-    def paste_wsl():
-        p = subprocess.Popen(['powershell.exe', '-command', 'Get-Clipboard'],
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE,
-                             close_fds=True)
-        stdout, stderr = p.communicate()
-        # WSL appends "\r\n" to the contents.
-        return stdout[:-2].decode(ENCODING)
-
-    return copy_wsl, paste_wsl
 
 
 # Automatic detection of clipboard mechanisms and importing is done in deteremine_clipboard():
@@ -505,11 +468,6 @@ def determine_clipboard():
     elif os.name == 'nt' or platform.system() == 'Windows':
         return init_windows_clipboard()
 
-    if platform.system() == 'Linux':
-        with open('/proc/version', 'r') as f:
-            if "Microsoft" in f.read():
-                return init_wsl_clipboard()
-
     # Setup for the MAC OS X platform:
     if os.name == 'mac' or platform.system() == 'Darwin':
         try:
@@ -529,10 +487,10 @@ def determine_clipboard():
         else:
             return init_gtk_clipboard()
 
-        if _executable_exists("xsel"):
-            return init_xsel_clipboard()
         if _executable_exists("xclip"):
             return init_xclip_clipboard()
+        if _executable_exists("xsel"):
+            return init_xsel_clipboard()
         if _executable_exists("klipper") and _executable_exists("qdbus"):
             return init_klipper_clipboard()
 

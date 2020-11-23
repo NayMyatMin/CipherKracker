@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #Cracking Columnar Cipher
-import pyperclip, detectEnglish, Columnar, bcolors
+import pyperclip, detectEnglish, Columnar
 from bcolors import bcolors
 
 def main():

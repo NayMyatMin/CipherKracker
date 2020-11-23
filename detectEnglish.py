@@ -1,4 +1,4 @@
-# Detect English Module
+# Detect English Module 
 
 #  Import detectEnglish detectEnglish.isEnglish(someString) # returns True or False
 # (There must be a "Wordlist.txt" file in this directory with all English words in it, one word per line. 

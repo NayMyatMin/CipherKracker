@@ -2,7 +2,7 @@
 #Cracking Ceaser Cipher
 import pyperclip, detectEnglish, Columnar, bcolors
 from bcolors import bcolors
-
+#The sybols within the range is allowed for test
 SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?.'
 
 def main():
@@ -26,6 +26,7 @@ def main():
                 cracked = cracked + symbol
         # Possible Decryption
         print('Key #%s: %s' % (key, cracked))
+    exit(0)
 
 # Driver program 
 if __name__ == "__main__": 

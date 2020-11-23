@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import pyperclip, bcolors, ConvertMode
+import pyperclip, ConvertMode
 from bcolors import bcolors
 
 def main():
