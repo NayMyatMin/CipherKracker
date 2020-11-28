@@ -8,7 +8,7 @@ def main():
     cracked = VigenereCrack(message)
 
     if cracked == None:
-        print(bcolors.FAIL+'No possible plaintext can be found from this Columnar Cipher!\n'+bcolors.ENDC)
+        print(bcolors.FAIL+'No possible plaintext can be found from this Vigenere Cipher!\n'+bcolors.ENDC)
         exit(0)
     else:
         print(bcolors.OKGREEN+cracked+bcolors.ENDC)
